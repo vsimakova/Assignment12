@@ -189,7 +189,32 @@ where transaction_id = 6;
 select customer_id, sum(total_price) from transactions 
 group by customer_id;
 
-select customer_id, count(transaction_id), ANY_VALUE(date(day_time)), sum(total_price) from transactions 
-group by customer_id;
+select customer_id, count(transaction_id), date(day_time), sum(total_price) from transactions 
+group by customer_id, day_time;
 
-SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+insert into orders (order_id, day_time, customer_phone, customer_name, pizza_order)
+values (4, '2014-09-11 9:47:00', '226-555-4982', 'Trevor Page', '1x Pepperoni & Cheese Pizza, 1x Meat Lovers Pizza');
+
+insert into transactions (transaction_id, pizza_id, pizza_count, total_price, order_id)
+values (7, 1, 1, 7.99, 4);
+
+insert into transactions (transaction_id, pizza_id, pizza_count, total_price, order_id)
+values (8, 3, 1, 14.99, 4);
+
+insert into customer_pizza (customer_id, pizza_id)
+values (1, 1);
+
+insert into customer_pizza (customer_id, pizza_id)
+values (1, 3);
+
+insert into pizza_order (pizza_id, order_id)
+values (1, 4);
+
+insert into pizza_order (pizza_id, order_id)
+values (3, 4);
+
+select * from transactions;
+
+update transactions 
+set customer_id = 1
+where transaction_id = 8;
