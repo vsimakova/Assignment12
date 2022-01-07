@@ -189,5 +189,7 @@ where transaction_id = 6;
 select customer_id, sum(total_price) from transactions 
 group by customer_id;
 
-select customer_id, count(transaction_id), ANY_VALUE(day_time), sum(total_price) from transactions 
+select customer_id, count(transaction_id), ANY_VALUE(date(day_time)), sum(total_price) from transactions 
 group by customer_id;
+
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
