@@ -187,10 +187,7 @@ set day_time = '2014-09-10 9:47:00'
 where transaction_id = 6;
 
 select customer_id, sum(total_price) from transactions 
-where day_time > '2014-09-10 9:46:00'
 group by customer_id;
 
-select customer_id, sum(total_price) from transactions 
-where day_time > '2014-09-10 13:20:00'
+select customer_id, count(transaction_id), ANY_VALUE(day_time), sum(total_price) from transactions 
 group by customer_id;
-  
