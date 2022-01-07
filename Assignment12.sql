@@ -190,7 +190,7 @@ select customer_id, sum(total_price) from transactions
 group by customer_id;
 
 select customer_id, count(transaction_id), date(day_time), sum(total_price) from transactions 
-group by customer_id, day_time;
+group by customer_id, date(day_time);
 
 insert into orders (order_id, day_time, customer_phone, customer_name, pizza_order)
 values (4, '2014-09-11 9:47:00', '226-555-4982', 'Trevor Page', '1x Pepperoni & Cheese Pizza, 1x Meat Lovers Pizza');
@@ -218,3 +218,7 @@ select * from transactions;
 update transactions 
 set customer_id = 1
 where transaction_id = 8;
+
+update transactions 
+set day_time = '2014-09-10 8:47:00' 
+where transaction_id = 1;
